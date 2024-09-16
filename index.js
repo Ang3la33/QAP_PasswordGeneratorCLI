@@ -10,14 +10,17 @@ let length = 8;
 let includeNumbers = false;
 // Default does not include uppercase letters
 let includeUppercase = false;
+// Default does not include symbols
+let includeSymbols = false;
 
 
 // Function(s)
-// Function to generate password with lowercase letters
-const generatePassword = (length, includeNumbers, includeUppercase) => {
+// Function to generate password
+const generatePassword = (length, includeNumbers, includeUppercase, includeSymbols) => {
     const lowercase = 'abcdefghijklmnopqrstuvwxyz';
     const numbers = '0123456789';
     const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const symbols = '!@#$%^&*()_+{}[]|;:,.<>?';
     // Start with lowercase characters as per default password
     let passwordCharacters = lowercase;
     // Add numbers if --number flag is provided
@@ -27,6 +30,10 @@ const generatePassword = (length, includeNumbers, includeUppercase) => {
     // Add uppercase letters if --uppercase flag is provided
     if (includeUppercase) {
         passwordCharacters += uppercase;
+    }
+    // Add symbols if --symbols flag is provided
+    if (includeSymbols) {
+        passwordCharacters += symbols;
     }
     // Initialize password variable
     let password = "";
@@ -52,6 +59,7 @@ const displayHelp = () => {
         --length <number>      Specify the length of the password (default = 8)
         --numbers              Include numbers in the password
         --uppercase            Include uppercase letters in the password
+        --symbols              Include symbols in the password
         --help                 Display this help message
         
         `);
@@ -92,6 +100,10 @@ for (let i = 0; i < userArguments.length; i++) {
         // Set a flag to include uppercase letters in the password
         includeUppercase = true;
     }
+    else if (arg === '--symbols') {
+        // Set a flag to include symbols in the password
+        includeSymbols = true;
+    }
     else if (arg === '--help') {
         // Display the help message
         displayHelp();
@@ -110,7 +122,7 @@ for (let i = 0; i < userArguments.length; i++) {
 
 
 // Generate password
-const password = generatePassword(length, includeNumbers, includeUppercase);
+const password = generatePassword(length, includeNumbers, includeUppercase, includeSymbols);
 
 // Display password
 console.log(`Password: ${password}`);
