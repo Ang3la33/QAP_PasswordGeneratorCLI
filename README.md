@@ -8,7 +8,7 @@ Password Generator Command Line Interface
 -The user is given an option of adding length, numbers, uppercase letters, and/or symbols to make up the generated
  password with a series of flags.
 
--IE. "--length <number>", "--numbers", "--uppercase", "symbols".
+-IE. "--length <number>", "--numbers", "--uppercase", "--symbols".
 
 
 
