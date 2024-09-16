@@ -4,20 +4,29 @@ const process = require('node:process');
 
 
 // Default value(s)
-// Default password length
+// Default password length is 8 letters
 let length = 8; 
+// Default does not include numbers
+let includeNumbers = false;
 
 
 // Function(s)
 // Function to generate password with lowercase letters
-const generatePassword = (length) => {
+const generatePassword = (length, includeNumbers) => {
     const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    // Start with lowercase characters as per default password
+    let passwordCharacters = lowercase;
+    // Add numbers if --number flag is provided
+    if (includeNumbers) {
+        passwordCharacters += numbers;
+    }
     // Initialize password variable
-    let password = " ";
-    // Loop to generate random lowercase characters 
+    let password = "";
+    // Loop to generate random characters 
     for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * lowercase.length);
-        password += lowercase[randomIndex];
+        const randomIndex = Math.floor(Math.random() * passwordCharacters.length);
+        password += passwordCharacters[randomIndex];
     }
     // Return the randomly generated password
     return password;
@@ -27,13 +36,14 @@ const generatePassword = (length) => {
 // Function to display help message
 const displayHelp = () => {
     console.log(`
-        
+
         Password Generator CLI
         ~~~~~~~~~~~~~~~~~~~~~~
 
         Options:
 
         --length <number>      Specify the length of the password (default = 8)
+        --numbers              Include numbers in the password
         --help                 Display this help message
         
         `);
@@ -66,6 +76,10 @@ for (let i = 0; i < userArguments.length; i++) {
         // Skip the next argument as its the value for --length 
         i++;
     }
+    else if (arg === '--numbers') {
+        // Set a flag to include numbers in the password
+        includeNumbers = true;
+    }
     else if (arg === '--help') {
         // Display the help message
         displayHelp();
@@ -84,7 +98,7 @@ for (let i = 0; i < userArguments.length; i++) {
 
 
 // Generate password
-const password = generatePassword(length);
+const password = generatePassword(length, includeNumbers);
 
 // Display password
 console.log(`Password: ${password}`);
