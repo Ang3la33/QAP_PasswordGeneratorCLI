@@ -1,0 +1,14 @@
+{
+  "name": "qap1-passwordgenerator",
+  "version": "1.0.0",
+  "description": "Password Generator CLI for QAP 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "password-generator": "./index.js"
+  },
+  "author": "Angela Flynn-Smith",
+  "license": "ISC"
+}
