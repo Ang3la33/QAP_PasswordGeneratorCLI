@@ -8,18 +8,25 @@ const process = require('node:process');
 let length = 8; 
 // Default does not include numbers
 let includeNumbers = false;
+// Default does not include uppercase letters
+let includeUppercase = false;
 
 
 // Function(s)
 // Function to generate password with lowercase letters
-const generatePassword = (length, includeNumbers) => {
+const generatePassword = (length, includeNumbers, includeUppercase) => {
     const lowercase = 'abcdefghijklmnopqrstuvwxyz';
     const numbers = '0123456789';
+    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // Start with lowercase characters as per default password
     let passwordCharacters = lowercase;
     // Add numbers if --number flag is provided
     if (includeNumbers) {
         passwordCharacters += numbers;
+    }
+    // Add uppercase letters if --uppercase flag is provided
+    if (includeUppercase) {
+        passwordCharacters += uppercase;
     }
     // Initialize password variable
     let password = "";
@@ -44,6 +51,7 @@ const displayHelp = () => {
 
         --length <number>      Specify the length of the password (default = 8)
         --numbers              Include numbers in the password
+        --uppercase            Include uppercase letters in the password
         --help                 Display this help message
         
         `);
@@ -80,6 +88,10 @@ for (let i = 0; i < userArguments.length; i++) {
         // Set a flag to include numbers in the password
         includeNumbers = true;
     }
+    else if (arg === '--uppercase') {
+        // Set a flag to include uppercase letters in the password
+        includeUppercase = true;
+    }
     else if (arg === '--help') {
         // Display the help message
         displayHelp();
@@ -98,7 +110,7 @@ for (let i = 0; i < userArguments.length; i++) {
 
 
 // Generate password
-const password = generatePassword(length, includeNumbers);
+const password = generatePassword(length, includeNumbers, includeUppercase);
 
 // Display password
 console.log(`Password: ${password}`);
